@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="unit.com.afterpay.codingchallenge.application.ReadFileTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-07T03:40:43" hostname="MohitPC" time="136.81">
+  <properties/>
+  <testcase name="testAlpha" classname="unit.com.afterpay.codingchallenge.application.ReadFileTest" time="136.81"/>
+  <system-out><![CDATA[11
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
