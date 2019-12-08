@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,24 +54,6 @@ public class ReadFile {
         return detail -> transactionToBeChecked.getHashedCardNumber().equals(detail.getHashedCardNumber()) &&
                 detail.getTransactionTime().compareTo(transactionToBeChecked.getTransactionTime().minus(Duration.ofHours(24))) > 0;
     }
-
-//    public static void main(String args[]) {
-//        try {
-//
-//            String fileName = "sample.txt";
-//
-////            Path path = Paths.get(ReadFile.class.getClassLoader()
-////                    .getResource(fileName).toURI());
-//
-//            List<TransactionDetail> transactionDetails = Files.lines(Paths.get("C:/sample.txt")).map(maptoItem).collect(Collectors.toList());
-//            System.out.println(transactionDetails.size());
-//            DetectFraud detectFraud = new DetectFraud();
-//            detectFraud.detectFraud(transactionDetails, 15);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     private static Function<String, TransactionDetail> mapToObject = (line) -> {
         String[] lineContent = line.split(",");
