@@ -4,8 +4,7 @@ Some details about the program -
 
 1. Program has been designed to consume transactions not necessarily in chronological order.
 2. For the sake of simplicity, Spring is not used.
-3. I have tried to keep code compact by removing boilerplate code - "the best code is no code at all"
-4. Code coverage stands at 100% for branch and 92% for line
+3. Code coverage stands at 100% for branch and 92% for line
 
 Assumptions - 
 1. If a single transaction amount is more than threshold amount, that transaction will be considered as fraudulent.
@@ -19,4 +18,5 @@ Further improvements -
 2. Spring environment specific application properties can be used to read Threshold value and other properties such as sliding time window duration.
 3. Line and branch code coverage can be enforced using jacocoTestCoverageVerification.
 4. All the validation failure details in input csv file can be collected and returned back for further analysis.
+5. Lombok annotations can be used to remove getter and setters.
  
