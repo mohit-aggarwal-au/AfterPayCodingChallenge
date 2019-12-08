@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class DetectFraudService {
 
@@ -19,10 +18,8 @@ public class DetectFraudService {
         transactionDetails.forEach(detail -> {
             //Total transaction amount is the sum of all the transaction amount that happened over a 24 hour sliding window period for a given credit card of a transaction
             BigDecimal totalTransactionAmount = transactionDetails.stream().filter(filterValidTransactions(detail.getHashedCardNumber(), detail.getTransactionTime()))
-                    .map(TransactionDetail::getTransactionAmount).reduce(BigDecimal::add).get();;
+                    .map(TransactionDetail::getTransactionAmount).reduce(BigDecimal::add).get();
 
-            List<TransactionDetail> slidingTimeWindowList = transactionDetails.stream().filter(filterValidTransactions(detail.getHashedCardNumber(), detail.getTransactionTime())).collect(Collectors.toList());
-            BigDecimal totalTransactionAmount = slidingTimeWindowList.stream().map(TransactionDetail::getTransactionAmount).reduce(BigDecimal::add).get();
             if (totalTransactionAmount.compareTo(threshold) == 1) {
                 // There may be duplicate hashed card numbers which were detected as fraudulent over multiple 24 hours sliding window periods, program will return only distinct hashed card values
                 // List will also contain card numbers for which a single transaction amount is more than threshold.

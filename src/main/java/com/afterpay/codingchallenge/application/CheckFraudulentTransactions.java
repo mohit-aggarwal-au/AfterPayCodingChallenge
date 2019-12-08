@@ -37,6 +37,7 @@ public class CheckFraudulentTransactions {
             }
 
             Path path = Paths.get(resourceURL.toURI());
+            //Reading transactions from csv file and converting it into a list of TransactionDetail objects
             List<TransactionDetail> transactionDetails = Files.lines(path).map(mapToObject).collect(Collectors.toList());
             return detectFraudService.detectFraud(transactionDetails, threshold);
         } catch (IOException | URISyntaxException exception) {
