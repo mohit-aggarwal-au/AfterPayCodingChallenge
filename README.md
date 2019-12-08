@@ -1,5 +1,12 @@
 # AfterPayCodingChallenge
 
+Some details about the program - 
+
+1. Program has been designed to consume transactions not necessarily in chronological order.
+2. For the sake of simplicity, Spring is not used.
+3. I have tried to keep code compact by removing boilerplate code - "the best code is no code at all"
+4. Code coverage stands at 100% for branch and 92% for line
+
 Assumptions - 
 1. If a single transaction amount is more than threshold amount, that transaction will be considered as fraudulent
 2. There may be duplicate hashed card numbers which were detected as fraudulent over multiple 24 hours sliding window periods, program will return only distinct hashed card values 
@@ -8,6 +15,8 @@ Assumptions -
 
 Further improvements - 
 
-1. Use of spring to use dependencies
-2. Use of lombok for getter and setter methods
+1. Use of spring to use dependencies, use of component test cases to check integration of spring components.
+2. Use of lombok for getter and setter methods.
+3. Line and branch code coverage can be enforced using jacocoTestCoverageVerification.
+4. All the validation failure details in input csv file can be collected and returned back for further analysis.
  

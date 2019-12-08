@@ -3,6 +3,7 @@ package unit.com.afterpay.codingchallenge.application;
 import com.afterpay.codingchallenge.application.CheckFraudulentTransactions;
 import com.afterpay.codingchallenge.exception.InvalidInputFileException;
 import com.afterpay.codingchallenge.exception.InvalidParameterException;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -44,21 +45,29 @@ public class CheckFraudulentTransactionsTest {
         assertTrue(exception.getMessage().contains("Exception occurred while opening input file"));
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"transaction_list_with_valid_values.csv"})
-    public void checkFraudulentTransactions_withValidValues_returnsSuccess(String fileName) {
+    @Test
+    public void checkFraudulentTransactions_withValidValues_returnsSuccess() {
 
-        Set<String> fraudCardNumberSet = checkFraudulentTransactions.checkFraudulentTransactions(validInputDirectory + "/" + fileName, new BigDecimal("15.00"));
+        Set<String> fraudCardNumberSet = checkFraudulentTransactions.checkFraudulentTransactions
+                (validInputDirectory + "/" + "transaction_list_with_valid_values.csv", new BigDecimal("15.00"));
         assertEquals(3, fraudCardNumberSet.size());
         assertTrue(fraudCardNumberSet.contains("10d7ce2f43e35fa57d1bbf8b1e3"));
         assertTrue(fraudCardNumberSet.contains("10d7ce2f43e35fa57d1bbf8b1e4"));
         assertTrue(fraudCardNumberSet.contains("10d7ce2f43e35fa57d1bbf8b1e7"));
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"transaction_list_valid_values_testing_boundary_conditions.csv"})
-    public void checkFraudulentTransactions_withValidValues_boundaryConditions_returnsSuccess(String fileName) {
-        Set<String> fraudCardNumberSet = checkFraudulentTransactions.checkFraudulentTransactions(validInputDirectory + "/" + fileName, new BigDecimal("15.00"));
+    @Test
+    public void checkFraudulentTransactions_withValidValues_boundaryConditions_returnsSuccess() {
+        Set<String> fraudCardNumberSet = checkFraudulentTransactions.checkFraudulentTransactions
+                (validInputDirectory + "/" + "transaction_list_valid_values_testing_boundary_conditions.csv", new BigDecimal("15.00"));
         assertEquals(fraudCardNumberSet.size(), 0);
+    }
+
+    @Test
+    public void checkFraudulentTransactions_withEmptyFile_returnsSuccess() {
+
+        Set<String> fraudCardNumberSet = checkFraudulentTransactions.checkFraudulentTransactions
+                (validInputDirectory + "/" + "blank_file.csv", new BigDecimal("15.00"));
+        assertEquals(0, fraudCardNumberSet.size());
     }
 }
