@@ -6,6 +6,8 @@ import com.afterpay.codingchallenge.model.TransactionDetail;
 import com.afterpay.codingchallenge.util.Utility;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -25,7 +27,7 @@ public class CheckFraudulentTransactions {
 
     private DetectFraudService detectFraudService = new DetectFraudService();
 
-    public Set<String> checkFraudulentTransactions(String fileName, double threshold) {
+    public Set<String> checkFraudulentTransactions(String fileName, BigDecimal threshold) {
 
         try {
 
@@ -53,7 +55,8 @@ public class CheckFraudulentTransactions {
             detail.setHashedCardNumber(lineContent[0].trim());
             Instant instant = simpleDateFormat.parse(lineContent[1]).toInstant();
             detail.setTransactionTime(instant);
-            detail.setTransactionAmount(Double.parseDouble(lineContent[2].trim()));
+            BigDecimal bigDecimal = new BigDecimal(lineContent[2].trim()).setScale(2, RoundingMode.HALF_UP);
+            detail.setTransactionAmount(bigDecimal);
         } catch (ParseException | NumberFormatException exception) {
             throw new InvalidParameterException("Exception occurred while parsing transactions file:" + exception.getMessage());
         }

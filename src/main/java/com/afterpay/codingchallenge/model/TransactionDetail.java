@@ -3,6 +3,7 @@ package com.afterpay.codingchallenge.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Getter
@@ -13,7 +14,15 @@ public class TransactionDetail {
 
     private Instant transactionTime;
 
-    private double transactionAmount;
+    private BigDecimal transactionAmount;
+
+    public BigDecimal getTransactionAmount() {
+        return transactionAmount;
+    }
+
+    public void setTransactionAmount(BigDecimal transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
 
     public String getHashedCardNumber() {
         return hashedCardNumber;
@@ -31,11 +40,4 @@ public class TransactionDetail {
         this.transactionTime = transactionTime;
     }
 
-    public double getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public void setTransactionAmount(double transactionAmount) {
-        this.transactionAmount = transactionAmount;
-    }
 }
