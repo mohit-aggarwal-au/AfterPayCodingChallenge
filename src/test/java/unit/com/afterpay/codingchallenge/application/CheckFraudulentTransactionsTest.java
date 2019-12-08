@@ -49,7 +49,7 @@ public class CheckFraudulentTransactionsTest {
     public void checkFraudulentTransactions_withValidValues_returnsSuccess(String fileName) {
 
         Set<String> fraudCardNumberSet = checkFraudulentTransactions.checkFraudulentTransactions(validInputDirectory + "/" + fileName, new BigDecimal("15.00"));
-        assertEquals(4, fraudCardNumberSet.size());
+        assertEquals(3, fraudCardNumberSet.size());
         assertTrue(fraudCardNumberSet.contains("10d7ce2f43e35fa57d1bbf8b1e3"));
         assertTrue(fraudCardNumberSet.contains("10d7ce2f43e35fa57d1bbf8b1e4"));
         assertTrue(fraudCardNumberSet.contains("10d7ce2f43e35fa57d1bbf8b1e7"));
@@ -62,4 +62,3 @@ public class CheckFraudulentTransactionsTest {
         assertEquals(fraudCardNumberSet.size(), 0);
     }
 }
-
