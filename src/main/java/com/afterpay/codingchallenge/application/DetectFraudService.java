@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class DetectFraud {
+public class DetectFraudService {
 
     public Set<String> detectFraud(List<TransactionDetail> transactionDetails, double threshold) {
 
@@ -20,7 +20,7 @@ public class DetectFraud {
 //            Double totalTransactionAmount = transactionDetails.stream().filter(isValidTimeWindow(detail.getHashedCardNumber(), detail.getTransactionTime())).
 //                    collect(Collectors.summingDouble(TransactionDetail::getTransactionAmount));
 
-            List<TransactionDetail> slidingTimeWindowList = transactionDetails.stream().filter(isValidTimeWindow(detail.getHashedCardNumber(), detail.getTransactionTime())).collect(Collectors.toList());
+            List<TransactionDetail> slidingTimeWindowList = transactionDetails.stream().filter(filterValidTransactions(detail.getHashedCardNumber(), detail.getTransactionTime())).collect(Collectors.toList());
             Double totalTransactionAmount = slidingTimeWindowList.stream().collect(Collectors.summingDouble(TransactionDetail::getTransactionAmount));
 
             if (totalTransactionAmount > threshold) {
@@ -32,7 +32,7 @@ public class DetectFraud {
         return fraudSet;
     }
 
-    private static Predicate<TransactionDetail> isValidTimeWindow(String hashedCreditCardNumber, Instant transactionTime) {
+    private static Predicate<TransactionDetail> filterValidTransactions(String hashedCreditCardNumber, Instant transactionTime) {
 
         //For a given hashed card number, TransactionToBeChecked time has to be less than or equal to the transaction time and more than or equal to (transaction time - 24 hours)
         return transactionToBeChecked -> transactionToBeChecked.getHashedCardNumber().equals(hashedCreditCardNumber) &&
