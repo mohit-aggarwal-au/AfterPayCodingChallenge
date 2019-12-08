@@ -9,6 +9,6 @@ public class ReadFileTest {
 
     @Test
     public void testAlpha() {
-        readFile.betaTesting("sample.txt", 15.00);
+        readFile.betaTesting("sample2.csv", 15.00);
     }
 }
