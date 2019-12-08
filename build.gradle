@@ -3,7 +3,7 @@ plugins {
     id 'jacoco'
 }
 
-group 'org.example'
+group 'com.afterpay'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -38,23 +38,4 @@ jacocoTestReport {
     }
 }
 
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-                minimum = 0.96
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 0.93
-            }
-        }
-    }
-    executionData(test)
-}
-
 test.finalizedBy jacocoTestReport
-jacocoTestCoverageVerification.mustRunAfter jacocoTestReport
-check.dependsOn jacocoTestCoverageVerification
-
