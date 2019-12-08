@@ -39,7 +39,7 @@ public class CheckFraudulentTransactions {
         String[] lineContent = line.split(Utility.COMMA);
 
         if (lineContent.length != 3) {
-            throw new InvalidParameterException("Input transaction file format is not correct");
+            throw new InvalidParameterException("Exception occurred while parsing transactions file :Input transaction file format is not correct");
         }
         TransactionDetail detail = new TransactionDetail();
         try {
