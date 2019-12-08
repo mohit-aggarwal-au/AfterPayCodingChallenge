@@ -7,6 +7,7 @@ import com.afterpay.codingchallenge.util.Utility;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,10 +25,14 @@ public class CheckFraudulentTransactions {
     public void checkFraudulentTransactions(String fileName, double threshold) {
 
         try {
-            Path path = Paths.get(this.getClass().getClassLoader()
-                    .getResource(fileName).toURI());
+
+            URL resourceURL = this.getClass().getClassLoader().getResource(fileName);
+            if (resourceURL == null) {
+                throw new InvalidInputFileException("Exception occurred while opening input file");
+            }
+
+            Path path = Paths.get(resourceURL.toURI());
             List<TransactionDetail> transactionDetails = Files.lines(path).map(mapToObject).collect(Collectors.toList());
-            System.out.println(transactionDetails.size());
             DetectFraudService detectFraudService = new DetectFraudService();
             detectFraudService.detectFraud(transactionDetails, threshold);
         } catch (IOException | URISyntaxException exception) {
