@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,9 @@ public class CheckFraudulentTransactions {
 
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Utility.DATE_FORMAT);
 
-    public void checkFraudulentTransactions(String fileName, double threshold) {
+    private DetectFraudService detectFraudService = new DetectFraudService();
+
+    public Set<String> checkFraudulentTransactions(String fileName, double threshold) {
 
         try {
 
@@ -33,8 +36,7 @@ public class CheckFraudulentTransactions {
 
             Path path = Paths.get(resourceURL.toURI());
             List<TransactionDetail> transactionDetails = Files.lines(path).map(mapToObject).collect(Collectors.toList());
-            DetectFraudService detectFraudService = new DetectFraudService();
-            detectFraudService.detectFraud(transactionDetails, threshold);
+            return detectFraudService.detectFraud(transactionDetails, threshold);
         } catch (IOException | URISyntaxException exception) {
             throw new InvalidInputFileException("Exception occurred while opening input file:" + exception.getMessage());
         }
