@@ -1,5 +1,8 @@
 # AfterPayCodingChallenge
 
+
+problem statement is given in the pdf file - coding-exercise.pdf
+
 Some details about the program - 
 
 1. Program has been designed to consume transactions not necessarily in chronological order.
